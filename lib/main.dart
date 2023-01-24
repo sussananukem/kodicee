@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,39 +38,110 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int leftNum = 1;
+  int rightNum = 1;
+  String winMsg = 'Draw!';
+  void roll() {
+    setState(() {
+      leftNum = Random().nextInt(6) + 1;
+      rightNum = Random().nextInt(6) + 1;
+
+      if (leftNum > rightNum) {
+        winMsg = '🚩Player 1 Wins';
+      } else if (rightNum > leftNum) {
+        winMsg = 'Player 2 Wins🚩';
+      } else {
+        winMsg = 'Draw!';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const  Center(child: Text('koDice')),
-        backgroundColor: Colors.red,
+        title: const Center(child: Text('koDice')),
+        backgroundColor: Colors.blue.shade900,
       ),
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.blue.shade900,
       body: SafeArea(
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Image(
-                    image: AssetImage(
-                      'images/dice1.png',
-                    ),
-                  ),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Text(
+                winMsg,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.green.shade300,
+                  fontSize: 40.0,
+                  fontFamily: 'Lobster',
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Image(
-                    image: AssetImage(
-                      'images/dice1.png',
+              const SizedBox(
+                height: 80.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Expanded(
+                    child: Text(
+                      'Player 1',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontFamily: 'Urbanist',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
+                  Expanded(
+                    child: Text(
+                      'Player 2',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontFamily: 'Urbanist',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        roll();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image.asset(
+                          'images/dice$leftNum.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        roll();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image.asset(
+                          'images/dice$rightNum.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
