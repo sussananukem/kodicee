@@ -120,6 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         roll();
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Image.asset(
@@ -133,6 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         roll();
                       },
+                      style: ButtonStyle(
+                        //This removes the highlight color when button is clicked!
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Image.asset(
